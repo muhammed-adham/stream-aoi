@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفعاليات - بث ايه او اي</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/date-range-picker.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="light-theme">
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="assets/logo-kader.png" alt="شعار الهيئة العربية للتصنيع" class="light-logo">
+                <img src="assets/logo-kader-white.png" alt="شعار الهيئة العربية للتصنيع" class="dark-logo">
+            </div>
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="البحث في الفعاليات...">
+                    <button id="voice-search"><i class="fas fa-microphone"></i></button>
+                </div>
+            </div>
+            <div class="nav-controls">
+                <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+                <a href="index.html" class="lang-switch">English</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="filter-section">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <select id="category-filter">
+                        <option value="">جميع التصنيفات</option>
+                    </select>
+                    <label for="category-filter">التصنيف:</label>
+                </div>
+                <div class="filter-group">
+                    <select id="location-filter">
+                        <option value="">جميع المواقع</option>
+                    </select>
+                    <label for="location-filter">الموقع:</label>
+                </div>
+                <div class="filter-group date-filter">
+                    <div class="date-range-inputs">
+                        <div class="date-input">
+                            <i class="fas fa-calendar"></i>
+                            <input type="date" id="start-date" placeholder="تاريخ البداية">
+                        </div>
+                        <span class="date-separator">إلى</span>
+                        <div class="date-input">
+                            <i class="fas fa-calendar"></i>
+                            <input type="date" id="end-date" placeholder="تاريخ النهاية">
+                        </div>
+                    </div>
+                    <label for="date-range">النطاق الزمني:</label>
+                </div>
+                <div class="filter-group">
+                    <select id="sort-by">
+                        <option value="date-desc">التاريخ (الأحدث أولاً)</option>
+                        <option value="date-asc">التاريخ (الأقدم أولاً)</option>
+                        <option value="title-asc">العنوان (أ-ي)</option>
+                        <option value="title-desc">العنوان (ي-أ)</option>
+                    </select>
+                    <label for="sort-by">ترتيب حسب:</label>
+                </div>
+                <button class="clear-filters-btn" id="clear-filters" disabled>
+                    <i class="fas fa-times"></i> مسح كافة الفلاتر
+                </button>
+            </div>
+        </section>
+
+        <div class="results-summary">
+            <div class="events-count">
+                <span id="events-count-number">0</span> 
+                فعالية تم العثور عليها
+            </div>
+        </div>
+        
+        <section class="events-grid">
+            <!-- Events will be dynamically loaded here -->
+        </section>
+
+        <div class="pagination">
+            <!-- Pagination will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/logo-kader.png" alt="شعار الهيئة العربية للتصنيع" class="light-logo">
+                <img src="assets/logo-kader-white.png" alt="شعار الهيئة العربية للتصنيع" class="dark-logo">
+            </div>
+            <div class="footer-links">
+                <a href="index-ar.html">الفعاليات</a>
+                <a href="about-ar.html">من نحن</a>
+                <a href="contact-ar.html">اتصل بنا</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Stream AOI. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/date-range-picker.js"></script>
+    <script src="js/site-settings.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/voice-search.js"></script>
+</body>
+</html> 

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details - Stream AOI</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/event.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="light-theme">
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="assets/logo-kader.png" alt="AOI Logo" class="light-logo">
+                <img src="assets/logo-kader-white.png" alt="AOI Logo" class="dark-logo">
+            </div>
+            <div class="search-container">
+                <div class="content-type-filter">
+                    <select id="content-type">
+                        <option value="all">All Content</option>
+                        <option value="images">Images</option>
+                        <option value="videos">Videos</option>
+                        <option value="article">Article</option>
+                        <option value="description">Description</option>
+                    </select>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Search in content...">
+                    <button id="voice-search"><i class="fas fa-microphone"></i></button>
+                </div>
+            </div>
+            <div class="nav-controls">
+                <button id="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="#" id="lang-switch" class="lang-switch">العربية</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="event-banner">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <span id="event-title">Event Title</span>
+            </div>
+        </section>
+
+        <section class="event-content">
+            <div class="event-header">
+                <h1 id="event-title-large">Event Title</h1>
+                <div class="event-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="meta-content">
+                            <span class="meta-label">Date</span>
+                            <span id="event-date" class="meta-value"></span>
+                        </div>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="meta-content">
+                            <span class="meta-label">Location</span>
+                            <span id="event-location" class="meta-value"></span>
+                        </div>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-tag"></i>
+                        <div class="meta-content">
+                            <span class="meta-label">Category</span>
+                            <span id="event-category" class="meta-value"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-media">
+                <div class="images-gallery">
+                    <div class="main-image">
+                        <img id="event-main-image" src="" alt="Event Image">
+                    </div>
+                    <div class="thumbnail-container" id="image-thumbnails">
+                        <!-- Thumbnails will be dynamically added here -->
+                    </div>
+                </div>
+                <div class="videos-container" id="event-videos">
+                    <!-- Videos will be dynamically added here -->
+                </div>
+            </div>
+
+            <div class="event-details">
+                <div class="event-description">
+                    <h2>Description</h2>
+                    <p id="event-description-text"></p>
+                </div>
+
+                <div class="event-article">
+                    <h2>Article</h2>
+                    <p id="event-article-text"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/logo-kader.png" alt="AOI Logo" class="light-logo">
+                <img src="assets/logo-kader-white.png" alt="AOI Logo" class="dark-logo">
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Stream AOI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/event.js"></script>
+    <script src="js/site-settings.js"></script>
+    <script src="js/voice-search.js"></script>
+    <script>
+        document.getElementById('lang-switch').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.setItem('preferred-language', 'ar');
+            const eventId = new URLSearchParams(window.location.search).get('id');
+            window.location.href = `event-ar.html?id=${eventId}`;
+        });
+    </script>
+</body>
+</html> 

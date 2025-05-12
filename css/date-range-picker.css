@@ -1,0 +1,328 @@
+/* Date Range Picker Styles */
+
+.date-range-picker-container {
+    position: relative;
+    width: 100%;
+    font-size: 14px;
+}
+
+.date-range-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+.date-range-display:hover {
+    border-color: #aaa;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.date-range-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.date-range-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    min-width: 300px;
+    max-width: 500px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    margin-top: 5px;
+    display: none;
+}
+
+.date-range-presets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.date-range-preset {
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.date-range-preset:hover {
+    background-color: #e9e9e9;
+    border-color: #ccc;
+}
+
+/* Calendar Overlay */
+.calendar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.calendar-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    overflow: hidden;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #eee;
+}
+
+.month-year-display {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.calendar-nav-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #555;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.calendar-nav-btn:hover {
+    background-color: #eee;
+}
+
+.calendar-body {
+    padding: 10px;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.calendar-day {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+    background-color: #f0f0f0;
+}
+
+.calendar-day.empty {
+    cursor: default;
+}
+
+.calendar-day.in-range {
+    background-color: #e6f0ff;
+    border-radius: 0;
+}
+
+.calendar-day.range-start {
+    background-color: #4b70e2;
+    color: white;
+    border-radius: 50% 0 0 50%;
+}
+
+.calendar-day.range-end {
+    background-color: #4b70e2;
+    color: white;
+    border-radius: 0 50% 50% 0;
+}
+
+.calendar-day.range-start.range-end {
+    border-radius: 50%;
+}
+
+.calendar-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+.calendar-apply-btn,
+.calendar-cancel-btn,
+.calendar-clear-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.calendar-apply-btn {
+    background-color: #4b70e2;
+    color: white;
+}
+
+.calendar-apply-btn:hover {
+    background-color: #3a5bbf;
+}
+
+.calendar-cancel-btn {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.calendar-cancel-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.calendar-clear-btn {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.calendar-clear-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* RTL Support */
+[dir="rtl"] .date-range-dropdown {
+    left: auto;
+    right: 0;
+}
+
+[dir="rtl"] .calendar-day.range-start {
+    border-radius: 0 50% 50% 0;
+}
+
+[dir="rtl"] .calendar-day.range-end {
+    border-radius: 50% 0 0 50%;
+}
+
+/* Dark Mode */
+body.dark-theme .date-range-display {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #fff;
+}
+
+body.dark-theme .date-range-dropdown {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #fff;
+}
+
+body.dark-theme .date-range-preset {
+    background-color: #3a3a3a;
+    border-color: #555;
+    color: #eee;
+}
+
+body.dark-theme .date-range-preset:hover {
+    background-color: #444;
+    border-color: #666;
+}
+
+body.dark-theme .calendar-container {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+body.dark-theme .calendar-header {
+    background-color: #333;
+    border-color: #444;
+}
+
+body.dark-theme .calendar-nav-btn {
+    color: #ddd;
+}
+
+body.dark-theme .calendar-nav-btn:hover {
+    background-color: #444;
+}
+
+body.dark-theme .calendar-weekdays {
+    color: #aaa;
+}
+
+body.dark-theme .calendar-day:hover {
+    background-color: #444;
+}
+
+body.dark-theme .calendar-day.in-range {
+    background-color: #364263;
+}
+
+body.dark-theme .calendar-footer {
+    border-color: #444;
+}
+
+body.dark-theme .calendar-cancel-btn,
+body.dark-theme .calendar-clear-btn {
+    background-color: #3a3a3a;
+    color: #eee;
+}
+
+body.dark-theme .calendar-cancel-btn:hover,
+body.dark-theme .calendar-clear-btn:hover {
+    background-color: #444;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+    .date-range-dropdown {
+        min-width: 280px;
+    }
+    
+    .date-range-presets {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .calendar-container {
+        width: 90%;
+        max-width: 350px;
+    }
+    
+    .calendar-day {
+        height: 35px;
+        font-size: 13px;
+    }
+} 

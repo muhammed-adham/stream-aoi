@@ -1,0 +1,120 @@
+/* Light Theme (Default) */
+body.light-theme {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+}
+
+body.light-theme header,
+body.light-theme footer {
+    background-color: var(--bg-light);
+}
+
+body.light-theme .nav-links a,
+body.light-theme .footer-links a,
+body.light-theme .lang-switch {
+    color: var(--text-light);
+}
+
+body.light-theme .event-card {
+    background-color: var(--bg-light);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+body.light-theme .search-section {
+    background-color: var(--bg-light);
+}
+
+body.light-theme .date-range input,
+body.light-theme .search-box input {
+    background-color: var(--bg-light);
+    border-color: #ddd;
+    color: var(--text-light);
+}
+
+/* Dark Theme */
+body.dark-theme {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+body.dark-theme header,
+body.dark-theme footer {
+    background-color: var(--bg-dark);
+    box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+}
+
+body.dark-theme .nav-links a,
+body.dark-theme .footer-links a,
+body.dark-theme .lang-switch {
+    color: var(--text-dark);
+}
+
+body.dark-theme .event-card {
+    background-color: #2a2a2a;
+    box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+}
+
+body.dark-theme .search-section {
+    background-color: var(--bg-dark);
+}
+
+body.dark-theme .date-range input,
+body.dark-theme .search-box input {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: var(--text-dark);
+}
+
+body.dark-theme .event-title {
+    color: var(--text-dark);
+}
+
+body.dark-theme .event-description {
+    color: #aaa;
+}
+
+body.dark-theme .footer-bottom {
+    border-top-color: #444;
+    color: #aaa;
+}
+
+/* Logo Switching */
+body.light-theme .dark-logo {
+    display: none;
+}
+
+body.light-theme .light-logo {
+    display: block;
+}
+
+body.dark-theme .light-logo {
+    display: none;
+}
+
+body.dark-theme .dark-logo {
+    display: block;
+}
+
+/* Theme Toggle Button */
+body.light-theme #theme-toggle {
+    color: var(--text-light);
+}
+
+body.dark-theme #theme-toggle {
+    color: var(--text-dark);
+}
+
+/* Transition Effects */
+body,
+header,
+footer,
+.nav-links a,
+.footer-links a,
+.lang-switch,
+.event-card,
+.search-section,
+.date-range input,
+.search-box input,
+#theme-toggle {
+    transition: var(--transition);
+} 
