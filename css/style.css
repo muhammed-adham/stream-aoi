@@ -419,11 +419,13 @@ body.dark-theme .timeline-date {
     transition: var(--transition);
     width: fit-content;
     margin-top: auto;
-    border: 1px solid black;
+    border: 1px solid var(--text-light);
 }
 
 .event-link:hover {
     background: var(--primary-color);
+    color: white;
+    border: white;
 }
 
 .event-image {
@@ -735,7 +737,7 @@ body.dark-theme .filter-group label {
 /* Responsive Design for Filters */
 @media (max-width: 768px) {
     .filter-section {
-        padding: 1.5rem 1rem;
+        padding: 3.5rem 1rem 1.5rem 1rem;
     }
 
     .filter-container {
