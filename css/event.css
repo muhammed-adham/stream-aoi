@@ -2,7 +2,7 @@
 .event-banner {
     margin-top: 80px;
     background: var(--bg-light);
-    padding: 1rem 5%;
+    padding: 0rem 5%;
     border-bottom: 1px solid #ddd;
 }
 
@@ -62,7 +62,7 @@
 .meta-item {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     gap: 1rem;
     flex: 1;
 }
@@ -70,14 +70,15 @@
 .meta-item i {
     font-size: 1.5rem;
     color: var(--primary-color);
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 1rem;
+    height: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(var(--primary-rgb), 0.1);
     border-radius: 8px;
     transition: all 0.3s ease;
+    /* align-self: flex-end; */
 }
 
 .meta-item:hover i {
@@ -300,12 +301,16 @@ body.dark-theme .event-article p {
 
     .meta-item i {
         font-size: 1.25rem;
-        width: 2.25rem;
-        height: 2.25rem;
+        /* width: 2.25rem; */
+        /* height: 2.25rem; */
     }
 
     .meta-value {
         font-size: 1rem;
+    }
+
+    .event-banner{
+    padding: 2.5rem 5% 1rem 5%;
     }
 }
 

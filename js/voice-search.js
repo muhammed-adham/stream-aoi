@@ -18,12 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Bad words lists (these are placeholder examples - add more as needed)
     const badWordsEN = [
-        'fuckoff', 'fuck', 'fucker', 'motherfucker', 'dick'
+        'fuckoff', 'fuck', 'fucker', 'motherfucker', 'bitch', 'dick'
         // Add more English bad words here
     ];
 
     const badWordsAR = [
-        'سيء', 'ام', 'امك', 'كس'
+         'ام', 'امك', 'كس', 'متناك', 'متناكه', 'متناكة'
         // Add more Arabic bad words here
     ];
 
@@ -137,8 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (containsBadWords(words)) {
                 // Filter out bad words or use a general message
                 const warningText = document.documentElement.lang === 'ar' ?
-                    'محتوى غير مناسب' :
-                    'Inappropriate content';
+                    'اعد المحاولة' :
+                    'Try again';
 
                 // Either filter the content or show warning
                 searchInput.value = filterBadWords(words);
