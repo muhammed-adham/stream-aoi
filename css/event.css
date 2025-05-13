@@ -256,7 +256,7 @@ body.dark-theme .event-article p {
 }
 
 [dir="rtl"] .meta-item {
-    flex-direction: row-reverse;
+    /* flex-direction: row-reverse; */
 }
 
 /* Responsive Design */
