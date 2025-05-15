@@ -83,6 +83,45 @@ function initializeEvents() {
 
     // Initial load
     filterEvents();
+
+    // Add keyboard listener for the entire document to handle keyboard navigation
+    document.addEventListener('keydown', handleKeyboardNavigation);
+}
+
+// Handle keyboard navigation
+function handleKeyboardNavigation(event) {
+    // Handle Enter key for interactive elements
+    if (event.key === 'Enter') {
+        const activeElement = document.activeElement;
+        if (activeElement && activeElement.classList.contains('event-card')) {
+            // If an event card has focus and Enter is pressed, navigate to its details page
+            const eventLink = activeElement.querySelector('.event-link');
+            if (eventLink) {
+                window.location.href = eventLink.href;
+            }
+        }
+    }
+    
+    // Handle arrow keys for pagination
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        const pagination = document.querySelector('.pagination');
+        if (pagination && document.activeElement.closest('.pagination')) {
+            // If focus is in the pagination area
+            const buttons = Array.from(pagination.querySelectorAll('button:not([disabled])'));
+            const currentIndex = buttons.indexOf(document.activeElement);
+            
+            if (currentIndex !== -1) {
+                let newIndex;
+                if (event.key === 'ArrowLeft') {
+                    newIndex = Math.max(0, currentIndex - 1);
+                } else { // ArrowRight
+                    newIndex = Math.min(buttons.length - 1, currentIndex + 1);
+                }
+                buttons[newIndex].focus();
+                event.preventDefault();
+            }
+        }
+    }
 }
 
 // Initialize Filters
@@ -262,6 +301,7 @@ function renderEvents() {
     if (eventsToShow.length === 0) {
         const noEventsDiv = document.createElement('div');
         noEventsDiv.className = 'no-events';
+        noEventsDiv.setAttribute('role', 'alert');
         noEventsDiv.innerHTML = `<p>${document.documentElement.lang === 'ar' ? 
             'لا توجد فعاليات متاحة' : 
             'No events available'}</p>`;
@@ -272,11 +312,14 @@ function renderEvents() {
     // Get current language
     const currentLang = document.documentElement.lang || 'en';
     
-    eventsToShow.forEach(event => {
+    eventsToShow.forEach((event, index) => {
         const eventCard = document.createElement('div');
         eventCard.className = 'event-card';
         eventCard.setAttribute('data-testid', 'glastonbury-card');
         eventCard.setAttribute('data-indexcard', 'true');
+        eventCard.setAttribute('role', 'article');
+        eventCard.setAttribute('aria-labelledby', `event-title-${event.id}`);
+        eventCard.setAttribute('tabindex', '0'); // Make card focusable for keyboard navigation
         
         // Use proper language-specific event page URL
         const eventPageUrl = currentLang === 'ar' ? `event-ar.html?id=${event.id}` : `event.html?id=${event.id}`;
@@ -284,14 +327,14 @@ function renderEvents() {
         eventCard.innerHTML = `
             <div data-testid="glastonbury-content" class="event-content">
                 <div data-testid="glastonbury-title-section">
-                    <p class="event-description">${event.date}</p>
-                    <h2 data-testid="glastonbury-title" class="event-title">${event.title}</h2>
+                    <p class="event-description" aria-label="Event date">${event.date}</p>
+                    <h2 data-testid="glastonbury-title" class="event-title" id="event-title-${event.id}">${event.title}</h2>
                 </div>
                 <div data-testid="glastonbury-description-section">
-                    <span data-testid="glastonbury-description" class="event-description">${event.description}</span>
+                    <span data-testid="glastonbury-description" class="event-description" aria-label="Event description">${event.description}</span>
                 </div>
                 <div data-testid="glastonbury-button">
-                    <a href="${eventPageUrl}" class="event-link">
+                    <a href="${eventPageUrl}" class="event-link" aria-label="${event.title} - ${currentLang === 'ar' ? 'عرض التفاصيل' : 'View Details'}">
                         ${currentLang === 'ar' ? 
                             'عرض التفاصيل' : 
                             'View Details'}
@@ -306,6 +349,14 @@ function renderEvents() {
                      srcset="${event.images[0]} 480w">
             </div>
         `;
+        
+        // Add event handler for keyboard navigation (Enter key)
+        eventCard.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                window.location.href = eventPageUrl;
+            }
+        });
+        
         eventsGrid.appendChild(eventCard);
     });
     
@@ -337,11 +388,14 @@ function renderPagination() {
     const prevButton = document.createElement('button');
     prevButton.innerHTML = document.documentElement.lang === 'ar' ? 'السابق' : 'Previous';
     prevButton.disabled = currentPage === 1;
+    prevButton.setAttribute('aria-label', document.documentElement.lang === 'ar' ? 'الصفحة السابقة' : 'Previous page');
     prevButton.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
             renderEvents();
             renderPagination();
+            // Announce page change to screen readers
+            announcePageChange();
         }
     });
     paginationContainer.appendChild(prevButton);
@@ -359,10 +413,12 @@ function renderPagination() {
     if (startPage > 1) {
         const firstPageButton = document.createElement('button');
         firstPageButton.textContent = '1';
+        firstPageButton.setAttribute('aria-label', document.documentElement.lang === 'ar' ? 'الصفحة الأولى' : 'First page');
         firstPageButton.addEventListener('click', () => {
             currentPage = 1;
             renderEvents();
             renderPagination();
+            announcePageChange();
         });
         paginationContainer.appendChild(firstPageButton);
 
@@ -370,6 +426,7 @@ function renderPagination() {
             const ellipsis = document.createElement('span');
             ellipsis.textContent = '...';
             ellipsis.className = 'pagination-ellipsis';
+            ellipsis.setAttribute('aria-hidden', 'true');
             paginationContainer.appendChild(ellipsis);
         }
     }
@@ -379,10 +436,15 @@ function renderPagination() {
         const pageButton = document.createElement('button');
         pageButton.textContent = i;
         pageButton.className = i === currentPage ? 'active' : '';
+        pageButton.setAttribute('aria-label', document.documentElement.lang === 'ar' ? 
+            `الصفحة ${i}${i === currentPage ? ' (الصفحة الحالية)' : ''}` : 
+            `Page ${i}${i === currentPage ? ' (current page)' : ''}`);
+        pageButton.setAttribute('aria-current', i === currentPage ? 'page' : 'false');
         pageButton.addEventListener('click', () => {
             currentPage = i;
             renderEvents();
             renderPagination();
+            announcePageChange();
         });
         paginationContainer.appendChild(pageButton);
     }
@@ -393,15 +455,18 @@ function renderPagination() {
             const ellipsis = document.createElement('span');
             ellipsis.textContent = '...';
             ellipsis.className = 'pagination-ellipsis';
+            ellipsis.setAttribute('aria-hidden', 'true');
             paginationContainer.appendChild(ellipsis);
         }
 
         const lastPageButton = document.createElement('button');
         lastPageButton.textContent = totalPages;
+        lastPageButton.setAttribute('aria-label', document.documentElement.lang === 'ar' ? 'الصفحة الأخيرة' : 'Last page');
         lastPageButton.addEventListener('click', () => {
             currentPage = totalPages;
             renderEvents();
             renderPagination();
+            announcePageChange();
         });
         paginationContainer.appendChild(lastPageButton);
     }
@@ -410,78 +475,105 @@ function renderPagination() {
     const nextButton = document.createElement('button');
     nextButton.innerHTML = document.documentElement.lang === 'ar' ? 'التالي' : 'Next';
     nextButton.disabled = currentPage === totalPages;
+    nextButton.setAttribute('aria-label', document.documentElement.lang === 'ar' ? 'الصفحة التالية' : 'Next page');
     nextButton.addEventListener('click', () => {
         if (currentPage < totalPages) {
             currentPage++;
             renderEvents();
             renderPagination();
+            announcePageChange();
         }
     });
     paginationContainer.appendChild(nextButton);
 }
 
-// Format date based on language
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    const lang = document.documentElement.lang;
+// Announce page change to screen readers
+function announcePageChange() {
+    const announcer = document.createElement('div');
+    announcer.setAttribute('aria-live', 'assertive');
+    announcer.setAttribute('role', 'status');
+    announcer.className = 'sr-only';
     
-    return date.toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
+    const message = document.documentElement.lang === 'ar' ?
+        `تم الانتقال إلى الصفحة ${currentPage}` :
+        `Navigated to page ${currentPage}`;
+    
+    announcer.textContent = message;
+    document.body.appendChild(announcer);
+    
+    // Remove after announcement is made
+    setTimeout(() => {
+        document.body.removeChild(announcer);
+    }, 1000);
 }
 
-// Clear all filters
+// Format date for display
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const lang = document.documentElement.lang || 'en';
+    return date.toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-US', options);
+}
+
+// Clear All Filters
 function clearAllFilters() {
-    // Reset category filter
-    const categoryFilter = document.getElementById('category-filter');
-    categoryFilter.value = '';
-    
-    // Reset location filter
-    const locationFilter = document.getElementById('location-filter');
-    locationFilter.value = '';
-    
-    // Reset search input
+    console.log("Clearing all filters"); // Debug
+
+    // Reset search
     const searchInput = document.getElementById('search-input');
-    searchInput.value = '';
+    if (searchInput) searchInput.value = '';
     
-    // Reset date inputs
+    // Reset category
+    const categoryFilter = document.getElementById('category-filter');
+    if (categoryFilter) categoryFilter.value = '';
+    
+    // Reset location
+    const locationFilter = document.getElementById('location-filter');
+    if (locationFilter) locationFilter.value = '';
+    
+    // Reset date range
     const startDate = document.getElementById('start-date');
     const endDate = document.getElementById('end-date');
-    
     if (startDate) startDate.value = '';
     if (endDate) endDate.value = '';
-    
-    // Reset sort-by to default
-    const sortBy = document.getElementById('sort-by');
-    sortBy.value = 'date-desc';
     
     // Reset the date range picker display if it exists
     if (window.dateRangePicker) {
         window.dateRangePicker.clearDateRange();
     }
     
-    // Disable clear filters button
+    // Reset sort to default
+    const sortBy = document.getElementById('sort-by');
+    if (sortBy) sortBy.value = 'date-desc';
+
+    // Update button state
     const clearFiltersBtn = document.getElementById('clear-filters');
     if (clearFiltersBtn) {
         clearFiltersBtn.disabled = true;
     }
     
-    // Force update filter state
-    updateFilterButtonOnChange();
-    
-    // Apply the filters
+    // Reapply filters
     filterEvents();
     
-    console.log("Filters cleared successfully"); // Debug message
+    // Announce filter clearing to screen readers
+    const announcer = document.createElement('div');
+    announcer.setAttribute('aria-live', 'polite');
+    announcer.setAttribute('role', 'status');
+    announcer.className = 'sr-only';
+    announcer.textContent = document.documentElement.lang === 'ar' ? 'تم مسح جميع الفلاتر' : 'All filters have been cleared';
+    document.body.appendChild(announcer);
+    
+    // Remove announcer after it's read
+    setTimeout(() => {
+        document.body.removeChild(announcer);
+    }, 1000);
 }
 
-// Helper function to update filter button state after any change
+// Update filter button state when any filter changes
 function updateFilterButtonOnChange() {
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
-    const startDate = document.getElementById('start-date')?.value || '';
-    const endDate = document.getElementById('end-date')?.value || '';
+    const searchTerm = document.getElementById('search-input').value;
+    const startDate = document.getElementById('start-date').value;
+    const endDate = document.getElementById('end-date').value;
     const selectedCategory = document.getElementById('category-filter').value;
     const selectedLocation = document.getElementById('location-filter').value;
     

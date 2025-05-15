@@ -82,11 +82,11 @@
     /* align-self: flex-end; */
 }
 
-.meta-item:hover i {
+/* .meta-item:hover i {
     background: var(--primary-color);
     color: white;
     transform: translateY(-2px);
-}
+} */
 
 .meta-content {
     display: flex;

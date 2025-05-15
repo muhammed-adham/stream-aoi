@@ -10,7 +10,6 @@ class DateRangePicker {
                 { label: 'Today', days: 0 },
                 { label: 'Yesterday', days: -1 },
                 { label: 'Last 7 days', days: -7 },
-                { label: 'Last 30 days', days: -30 },
                 { label: 'This month', type: 'thisMonth' },
                 { label: 'Last month', type: 'lastMonth' },
                 { label: 'This year', type: 'thisYear' },
@@ -147,7 +146,6 @@ class DateRangePicker {
             'Today': 'اليوم',
             'Yesterday': 'أمس',
             'Last 7 days': 'آخر ٧ أيام',
-            'Last 30 days': 'آخر ٣٠ يوم',
             'This month': 'هذا الشهر',
             'Last month': 'الشهر الماضي',
             'This year': 'هذا العام',
@@ -439,7 +437,17 @@ class DateRangePicker {
         this.startDate = null;
         this.endDate = null;
         
+        // Reset display text
         this.displayText.textContent = this.isArabic ? 'اختر نطاق التاريخ' : 'Select date range';
+        
+        // Reset the hidden input elements
+        const startDateEl = document.getElementById(this.options.startDateId);
+        const endDateEl = document.getElementById(this.options.endDateId);
+        
+        if (startDateEl) startDateEl.value = '';
+        if (endDateEl) endDateEl.value = '';
+        
+        // Notify any change listeners
         this.notifyChange();
     }
     
@@ -464,7 +472,7 @@ class DateRangePicker {
     }
     
     formatDisplayDate(date) {
-        return date.toLocaleDateString(this.isArabic ? 'ar-SA' : 'en-US', {
+        return date.toLocaleDateString(this.isArabic ? 'ar-EG' : 'en-US', {
             year: 'numeric',
             month: 'short',
             day: 'numeric'

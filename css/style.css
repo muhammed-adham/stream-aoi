@@ -914,4 +914,51 @@ body.dark-theme .clear-filters-btn {
     background-color: #3a3a3a;
     border-color: #555;
     color: #eee;
+}
+
+/* Screen reader only class - Visually hide elements but keep them accessible to screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus styles for keyboard navigation */
+a:focus,
+button:focus,
+[role="button"]:focus,
+input:focus,
+select:focus,
+textarea:focus,
+[tabindex]:focus {
+    outline: 3px solid #4299e1;
+    outline-offset: 2px;
+}
+
+.event-card:focus-visible {
+    outline: 3px solid #4299e1;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
+}
+
+/* Skip to main content link - becomes visible when focused */
+.skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    padding: 8px;
+    z-index: 100;
+    background: var(--primary-color);
+    color: #fff;
+    transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+    top: 0;
 } 

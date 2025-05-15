@@ -11,94 +11,102 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="light-theme">
-    <header>
-        <nav>
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    <header role="banner">
+        <nav role="navigation" aria-label="Main Navigation">
             <div class="logo">
-                <img src="assets/logo-kader.png" alt="AOI Logo" class="light-logo">
-                <img src="assets/logo-kader-white.png" alt="AOI Logo" class="dark-logo">
+                <a href="index.html" aria-label="Stream AOI Home">
+                    <img src="assets/logo-kader.png" alt="AOI Logo" class="light-logo">
+                    <img src="assets/logo-kader-white.png" alt="AOI Logo" class="dark-logo">
+                </a>
             </div>
             <div class="search-container">
-                <div class="search-box">
-                    <input type="text" id="search-input" placeholder="Search events...">
-                    <button id="voice-search"><i class="fas fa-microphone"></i></button>
+                <div class="search-box" role="search">
+                    <label for="search-input" class="sr-only">Search events</label>
+                    <input type="text" id="search-input" placeholder="Search events..." aria-label="Search events">
+                    <button id="voice-search" aria-label="Search by voice" tabindex="0"><i class="fas fa-microphone" aria-hidden="true"></i></button>
                 </div>
             </div>
             <div class="nav-controls">
-                <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-                <a href="index-ar.html" class="lang-switch">العربية</a>
+                <button id="theme-toggle" aria-label="Toggle dark/light theme" tabindex="0"><i class="fas fa-moon" aria-hidden="true"></i></button>
+                <a href="index-ar.html" class="lang-switch" aria-label="Switch to Arabic language" tabindex="0">العربية</a>
             </div>
         </nav>
     </header>
 
-    <main>
-        <section class="filter-section">
+    <main id="main-content" role="main">
+        <section class="filter-section" aria-label="Event Filters">
             <div class="filter-container">
                 <div class="filter-group">
                     <label for="category-filter">Category:</label>
-                    <select id="category-filter">
+                    <select id="category-filter" aria-label="Filter by category">
                         <option value="">All Categories</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label for="location-filter">Location:</label>
-                    <select id="location-filter">
+                    <select id="location-filter" aria-label="Filter by location">
                         <option value="">All Locations</option>
                     </select>
                 </div>
                 <div class="filter-group date-filter">
                     <label for="date-range">Date Range:</label>
-                    <div class="date-range-inputs">
+                    <div class="date-range-inputs" role="group" aria-labelledby="date-range">
                         <div class="date-input">
-                            <i class="fas fa-calendar"></i>
-                            <input type="date" id="start-date" placeholder="Start Date">
+                            <i class="fas fa-calendar" aria-hidden="true"></i>
+                            <label for="start-date" class="sr-only">Start Date</label>
+                            <input type="date" id="start-date" placeholder="Start Date" aria-label="Start Date">
                         </div>
                         <span class="date-separator">to</span>
                         <div class="date-input">
-                            <i class="fas fa-calendar"></i>
-                            <input type="date" id="end-date" placeholder="End Date">
+                            <i class="fas fa-calendar" aria-hidden="true"></i>
+                            <label for="end-date" class="sr-only">End Date</label>
+                            <input type="date" id="end-date" placeholder="End Date" aria-label="End Date">
                         </div>
                     </div>
                 </div>
                 <div class="filter-group">
                     <label for="sort-by">Sort By:</label>
-                    <select id="sort-by">
+                    <select id="sort-by" aria-label="Sort events">
                         <option value="date-desc">Date (Newest First)</option>
                         <option value="date-asc">Date (Oldest First)</option>
                         <option value="title-asc">Title (A-Z)</option>
                         <option value="title-desc">Title (Z-A)</option>
                     </select>
                 </div>
-                <button class="clear-filters-btn" id="clear-filters" disabled>
-                    <i class="fas fa-times"></i> Clear All Filters
+                <button class="clear-filters-btn" id="clear-filters" disabled aria-label="Clear all filters" tabindex="0">
+                    <i class="fas fa-times" aria-hidden="true"></i> Clear All Filters
                 </button>
             </div>
         </section>
 
-        <div class="results-summary">
+        <div class="results-summary" aria-live="polite">
             <div class="events-count">
                 <span id="events-count-number">0</span> Events Found
             </div>
         </div>
         
-        <section class="events-grid">
+        <section class="events-grid" role="region" aria-label="Events List">
             <!-- Events will be dynamically loaded here -->
         </section>
 
-        <div class="pagination">
+        <nav class="pagination" role="navigation" aria-label="Pagination Navigation">
             <!-- Pagination will be dynamically loaded here -->
-        </div>
+        </nav>
     </main>
 
-    <footer>
+    <footer role="contentinfo">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="assets/logo-kader.png" alt="AOI Logo" class="light-logo">
-                <img src="assets/logo-kader-white.png" alt="AOI Logo" class="dark-logo">
+                <a href="index.html" aria-label="Stream AOI Home">
+                    <img src="assets/logo-kader.png" alt="AOI Logo" class="light-logo">
+                    <img src="assets/logo-kader-white.png" alt="AOI Logo" class="dark-logo">
+                </a>
             </div>
             <div class="footer-links">
-                <a href="index.html">Events</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+                <a href="index.html" aria-label="Events page">Events</a>
+                <a href="about.html" aria-label="About page">About</a>
+                <a href="contact.html" aria-label="Contact page">Contact</a>
             </div>
         </div>
         <div class="footer-bottom">
